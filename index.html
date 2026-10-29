@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>სასკოლო პორტალი | მოსწავლეთა შესაძლებლობები</title>
+    
+    <!-- Tab Logo (Favicon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%232563eb' d='M320 32c-8.1 0-16.1 2.3-23 6.9L10.1 188.9C3.8 193.1 0 200.3 0 208s3.8 14.9 10.1 19.1l286.9 149.9c6.9 4.6 14.9 6.9 23 6.9s16.1-2.3 23-6.9l286.9-149.9c6.3-4.2 10.1-11.4 10.1-19.1s-3.8-14.9-10.1-19.1L343 38.9c-6.9-4.6-14.9-6.9-23-6.9zM256 368v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32v-64l-64 33.5L256 368z'/></svg>">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Base Variables & Modern Theme */
+        :root {
+            --bg-primary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            /* Modern Gradients */
+            --grad-primary: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            --grad-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --grad-purple: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+            --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.12);
+            
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --bg-primary: #0b0f17;
+            --bg-card: #131c2e;
+            --bg-secondary: #1b273e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #26354a;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 25px -5px rgba(59, 130, 246, 0.3);
+            --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(19, 28, 46, 0.85);
+        }
+
+        .navbar {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .logo-badge {
+            width: 44px;
+            height: 44px;
+            background: var(--grad-primary);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .logo-text {
+            background: var(--grad-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .essential-links {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .essential-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.2rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .essential-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--grad-primary);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .essential-links a:hover::after {
+            width: 100%;
+        }
+
+        .essential-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Burger Menu & Theme Buttons */
+        .burger-btn, .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle {
+            border-radius: 50%;
+        }
+
+        .burger-btn:hover, .theme-toggle:hover {
+            background: var(--grad-primary);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .burger-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            width: 260px;
+            padding: 0.8rem 0;
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+        }
+
+        .burger-dropdown.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .burger-dropdown a {
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .burger-dropdown a:hover {
+            background: var(--bg-secondary);
+            color: #2563eb;
+            padding-left: 1.8rem;
+        }
+
+        /* Hero Banner with Transparent Educational Background Image */
+        .hero {
+            position: relative;
+            color: white;
+            padding: 7rem 2rem;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Transparent dark gradient overlay for text readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.90) 0%, rgba(30, 27, 75, 0.85) 50%, rgba(49, 46, 129, 0.88) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        /* Modern Buttons */
+        .btn-gradient {
+            background: var(--grad-primary);
+            color: white !important;
+            padding: 0.85rem 1.8rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 28px -4px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-accent {
+            background: var(--grad-accent);
+            box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-accent:hover {
+            box-shadow: 0 14px 28px -4px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-hero {
+            padding: 1.1rem 2.8rem;
+            border-radius: 50px;
+            font-size: 1.05rem;
+        }
+
+        /* Container & Titles */
+        .container {
+            max-width: 1250px;
+            margin: 4.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-header {
+            margin-bottom: 2.2rem;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-top: 0.4rem;
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-bottom: 4rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-bottom: 4rem;
+        }
+
+        /* Card Layouts */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon-green { background: var(--grad-accent); }
+        .icon-blue { background: var(--grad-primary); }
+        .icon-purple { background: var(--grad-purple); }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .course-body {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .course-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        [data-theme="dark"] .course-tag {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .course-footer {
+            padding: 1.2rem 2rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .club-card {
+            border-top: 5px solid #8b5cf6;
+        }
+
+        .calendar-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--grad-primary);
+        }
+
+        .calendar-card.accent-card::before {
+            background: var(--grad-accent);
+        }
+
+        .calendar-card.purple-card::before {
+            background: var(--grad-purple);
+        }
+
+        /* Competitions Table */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+            margin-bottom: 4rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1.3rem 1.6rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge {
+            padding: 0.45rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .badge-olympiad { background: rgba(37, 99, 235, 0.12); color: #2563eb; }
+        .badge-contest { background: rgba(245, 158, 11, 0.12); color: #d97706; }
+        .badge-grant { background: rgba(16, 185, 129, 0.12); color: #059669; }
+
+        .checklist { list-style: none; }
+        .checklist li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.98rem;
+        }
+        .checklist i {
+            color: #10b981;
+            margin-top: 4px;
+        }
+
+        /* Eco Calculator */
+        .calculator-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calc-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 1.1rem;
+            cursor: pointer;
+            font-size: 0.98rem;
+        }
+
+        .calc-option input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #059669;
+            cursor: pointer;
+        }
+
+        .calc-result-box {
+            margin-top: 1.8rem;
+            padding: 1.4rem;
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .calc-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .calc-score {
+            font-size: 1.4rem;
+            color: #059669;
+            font-weight: 800;
+        }
+
+        .eco-message {
+            margin-top: 0.8rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+            padding-top: 0.6rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        /* Form */
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2.8rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 1.6rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            font-size: 0.98rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 2.8rem 1rem;
+            margin-top: 6rem;
+            font-size: 0.92rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 52px;
+            height: 52px;
+            background: var(--grad-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 850px) {
+            .essential-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header id="top">
+        <nav class="navbar">
+            <a href="javascript:void(0)" class="logo" id="logoBtn" title="მთავარზე გადასვლა">
+                <div class="logo-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="logo-text">სასკოლო პორტალი</span>
+            </a>
+            
+            <div class="nav-right">
+                <ul class="essential-links">
+                    <li><a href="#competitions">ოლიმპიადები</a></li>
+                    <li><a href="#resources">რესურსები</a></li>
+                    <li><a href="https://onlineschool.emis.ge/" target="_blank">ონლაინ ჟურნალი</a></li>
+                    <li><a href="#courses">კურსები</a></li>
+                </ul>
+
+                <button class="burger-btn" id="burgerBtn" title="მენიუ">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <button class="theme-toggle" id="themeToggle" title="თემის შეცვლა">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+
+            <div class="burger-dropdown" id="burgerDropdown">
+                <a href="#competitions"><i class="fa-solid fa-trophy"></i> ოლიმპიადები</a>
+                <a href="#resources"><i class="fa-solid fa-book-open"></i> რესურსები</a>
+                <a href="https://onlineschool.emis.ge/" target="_blank"><i class="fa-solid fa-globe"></i> ონლაინ ჟურნალი</a>
+                <a href="#courses"><i class="fa-solid fa-laptop-code"></i> კურსები</a>
+                <a href="#calendar"><i class="fa-solid fa-calendar-days"></i> კალენდარი</a>
+                <a href="#clubs"><i class="fa-solid fa-users"></i> კლუბები</a>
+                <a href="#eco"><i class="fa-solid fa-leaf"></i> გარემოს დაცვა</a>
+                <a href="#ideas"><i class="fa-solid fa-lightbulb"></i> იდეების ყუთი</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Educational Background Image -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>შენი გზა <span class="hero-gradient-text">განვითარებისა</span> და ცვლილებებისკენ</h1>
+            <p>აღმოაჩინე ახალი შესაძლებლობები, მიიღე მონაწილეობა ოლიმპიადებში და შეიტანე შენი წვლილი უკეთესი სასკოლო გარემოს შექმნაში.</p>
+            <a href="#competitions" class="btn-gradient btn-hero">
+                <span>იხილე კონკურსები</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Competitions and Olympiads Table -->
+        <div class="section-header" id="competitions">
+            <h2 class="section-title"><i class="fa-solid fa-trophy" style="color: #2563eb;"></i> ოლიმპიადები და კონკურსები</h2>
+            <p class="section-subtitle">გამოცადე შენი ცოდნა და მოიპოვე აღიარება</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ღონისძიება</th>
+                        <th>ტიპი</th>
+                        <th>სამიზნე კლასები</th>
+                        <th>რეგისტრაციის ვადა</th>
+                        <th>მოქმედება</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ეროვნული სასკოლო ოლიმპიადა</strong></td>
+                        <td><span class="badge badge-olympiad">ოლიმპიადა</span></td>
+                        <td>X - XII კლასი</td>
+                        <td>15 ნოემბერი, 2026</td>
+                        <td><a href="#" class="btn-gradient">რეგისტრაცია <i class="fa-solid fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>STEM ინოვაციების კონკურსი</strong></td>
+                        <td><span class="badge badge-contest">კონკურსი</span></td>
+                        <td>VIII - XII კლასი</td>
+                        <td>30 ნოემბერი, 2026</td>
+                        <td><a href="#" class="btn-gradient">პირობები <i class="fa-solid fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>მწვანე პროექტების გრანტი</strong></td>
+                        <td><span class="badge badge-grant">გრანტი</span></td>
+                        <td>VII - XII კლასი</td>
+                        <td>10 დეკემბერი, 2026</td>
+                        <td><a href="#" class="btn-gradient btn-accent">განაცხადი <i class="fa-solid fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>ინგლისური ენის დებატ-ლიგა</strong></td>
+                        <td><span class="badge badge-contest">კონკურსი</span></td>
+                        <td>IX - XII კლასი</td>
+                        <td>05 დეკემბერი, 2026</td>
+                        <td><a href="#" class="btn-gradient">დეტალები <i class="fa-solid fa-arrow-right"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Student Resources Center -->
+        <div class="section-header" id="resources">
+            <h2 class="section-title"><i class="fa-solid fa-folder-open" style="color: #8b5cf6;"></i> მოსწავლის რესურს-ცენტრი</h2>
+            <p class="section-subtitle">სასწავლო მასალები და სასარგებლო ბმულები</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon icon-blue"><i class="fa-solid fa-globe"></i></div>
+                <h3>ონლაინ ჟურნალი</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.4rem;">შეამოწმე შენი ნიშნები და დასწრება EMIS-ის პორტალზე.</p>
+                <a href="https://onlineschool.emis.ge/" target="_blank" class="btn-gradient btn-accent">გადასვლა <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-purple"><i class="fa-solid fa-book-open"></i></div>
+                <h3>ელექტრონული წიგნები</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.4rem;">ყველა კლასის სახელმძღვანელოების ციფრული ვერსიები.</p>
+                <a href="#" class="btn-gradient">გახსნა <i class="fa-solid fa-folder-open"></i></a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-green"><i class="fa-solid fa-file-signature"></i></div>
+                <h3>საგამოცდო ტესტები</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.4rem;">წინა წლების ოლიმპიადებისა და გამოცდების ნიმუშები.</p>
+                <a href="#" class="btn-gradient">გადმოწერა <i class="fa-solid fa-download"></i></a>
+            </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="section-header" id="courses">
+            <h2 class="section-title"><i class="fa-solid fa-laptop-code" style="color: #10b981;"></i> კურსები</h2>
+            <p class="section-subtitle">აიმაღლე კვალიფიკაცია და შეიძინე თანამედროვე უნარები</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="course-card">
+                <div class="course-body">
+                    <span class="course-tag">განათლება</span>
+                    <h3>KIBE - სასწავლო პორტალი</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.6rem; font-size: 0.92rem;">გაიარე სასწავლო კურსები და განავითარე შენი პროფესიული და ტექნოლოგიური უნარები.</p>
+                </div>
+                <div class="course-footer">
+                    <span>ონლაინ პლატფორმა</span>
+                    <a href="https://kibe.edu.ge/" target="_blank" class="btn-gradient btn-accent">გადასვლა <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-body">
+                    <span class="course-tag">პროგრამირება</span>
+                    <h3>Python-ის საფუძვლები</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.6rem; font-size: 0.92rem;">ისწავლე პროგრამირების საბაზო პრინციპები და შექმენი შენი პირველი პროექტები.</p>
+                </div>
+                <div class="course-footer">
+                    <span>ინტერაქტიული</span>
+                    <a href="#" class="btn-gradient">დაწყება <i class="fa-solid fa-play"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-body">
+                    <span class="course-tag">გარემოს დაცვა</span>
+                    <h3>Eco-Leaders & კლიმატი</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.6rem; font-size: 0.92rem;">გაიგე მეტი კლიმატის ცვლილებასა და გარემოსდაცვით ლიდერობაზე.</p>
+                </div>
+                <div class="course-footer">
+                    <span>სერტიფიცირებული</span>
+                    <a href="#" class="btn-gradient btn-accent">რეგისტრაცია <i class="fa-solid fa-user-plus"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- School Calendar Section -->
+        <div class="section-header" id="calendar">
+            <h2 class="section-title"><i class="fa-solid fa-calendar-days" style="color: #ec4899;"></i> სასკოლო კალენდარი & არდადეგები</h2>
+            <p class="section-subtitle">მნიშვნელოვანი თარიღები და დასვენების დღეები</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card calendar-card purple-card">
+                <div class="card-icon icon-purple"><i class="fa-solid fa-calendar-days"></i></div>
+                <h3>I სემესტრი</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0.8rem;">15 სექტემბერი - 29 დეკემბერი</p>
+                <div style="background: var(--bg-secondary); padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.88rem;">
+                    <strong>ზამთრის არდადეგები:</strong><br> 30 დეკემბერი - 14 იანვარი
+                </div>
+            </div>
+
+            <div class="card calendar-card">
+                <div class="card-icon icon-blue"><i class="fa-solid fa-calendar-check"></i></div>
+                <h3>II სემესტრი</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0.8rem;">15 იანვარი - 15 ივნისი</p>
+                <div style="background: var(--bg-secondary); padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.88rem;">
+                    <strong>საგაზაფხულო არდადეგები:</strong><br> 8 მარტი - 14 მარტი
+                </div>
+            </div>
+
+            <div class="card calendar-card accent-card">
+                <div class="card-icon icon-green"><i class="fa-solid fa-pen-ruler"></i></div>
+                <h3>საგამოცდო პერიოდი</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0.8rem;">მაისი - ივნისი, 2026</p>
+                <div style="background: var(--bg-secondary); padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.88rem;">
+                    <strong>განრიგი:</strong><br> ეროვნული და სასკოლო გამოცდები
+                </div>
+            </div>
+        </div>
+
+        <!-- School Clubs Section -->
+        <div class="section-header" id="clubs">
+            <h2 class="section-title"><i class="fa-solid fa-users" style="color: #2563eb;"></i> სასკოლო კლუბები</h2>
+            <p class="section-subtitle">გაერთიანდი ინტერესების მიხედვით</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="course-card club-card">
+                <div class="course-body">
+                    <span class="course-tag">ტექნოლოგიები</span>
+                    <h3>STEM & ინოვაციების კლუბი</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.6rem;">რობოტოტექნიკა, ვებ-პროგრამირება და სამეცნიერო ექსპერიმენტები.</p>
+                </div>
+                <div class="course-footer">
+                    <span>ყოველ სამშაბათს</span>
+                    <a href="#ideas" class="btn-gradient">გაწევრიანება <i class="fa-solid fa-user-plus"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card club-card">
+                <div class="course-body">
+                    <span class="course-tag">ეკოლოგია</span>
+                    <h3>Eco-Guardians (მწვანე კლუბი)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.6rem;">გამწვანების აქციები, გადამუშავების პროექტები და ეკო-ლაშქრობები.</p>
+                </div>
+                <div class="course-footer">
+                    <span>ყოველ ხუთშაბათს</span>
+                    <a href="#ideas" class="btn-gradient btn-accent">გაწევრიანება <i class="fa-solid fa-user-plus"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card club-card">
+                <div class="course-body">
+                    <span class="course-tag">დისკუსია</span>
+                    <h3>დებატებისა და ლიდერობის კლუბი</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.6rem;">საჯარო გამოსვლები, არგუმენტირებული მსჯელობა და დებატ-ლიგები.</p>
+                </div>
+                <div class="course-footer">
+                    <span>ყოველ პარასკევს</span>
+                    <a href="#ideas" class="btn-gradient">გაწევრიანება <i class="fa-solid fa-user-plus"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eco & School Contribution Section -->
+        <div class="section-header">
+            <h2 class="section-title"><i class="fa-solid fa-seedling" style="color: #10b981;"></i> ეკოლოგია და ინიციატივები</h2>
+            <p class="section-subtitle">პატარა ნაბიჯები დიდი ცვლილებებისთვის</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card" id="eco">
+                <div class="card-icon icon-green">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <h3>გარემოს დაცვა სკოლაში</h3>
+                <ul class="checklist">
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>ნარჩენების სორტირება:</strong> გამოიყენე პლასტმასისა და ქაღალდის ცალკე ურნები.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>ენერგიის დაზოგვა:</strong> გამორთე შუქი და ტექნიკა საკლასო ოთახიდან გასვლისას.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>მრავალჯერადი მოხმარება:</strong> ატარე საკუთარი წყლის ბოთლი და შეამცირე პლასტმასი.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>მწვანე კუთხე:</strong> მოუარე საკლასო ოთახის მცენარეებს ან დარგე ახალი.</div></li>
+                </ul>
+            </div>
+
+            <div class="card" id="contribution">
+                <div class="card-icon icon-blue">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <h3>როგორ შევიტანო წვლილი?</h3>
+                <ul class="checklist">
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>თანატოლგანათლება:</strong> დაეხმარე დაბალკლასელებს საგნების ათვისებაში.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>მოსწავლეთა თვითმმართველობა:</strong> გახდი აქტიური წევრი და წამოაყენე იდეები.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>საკლასო ბიბლიოთეკა:</strong> გააზიარე შენი წაკითხული წიგნები თანაკლასელებთან.</div></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <div><strong>მოხალისეობა:</strong> დააარსე ან შეურთდი STEM, წიგნის ან სპორტულ კლუბებს.</div></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Eco Calculator Widget -->
+        <div class="calculator-card">
+            <h3 style="margin-bottom: 0.6rem;"><i class="fa-solid fa-calculator" style="color: #10b981;"></i> ჩემი "მწვანე კვალი" (ეკო-კალკულატორი)</h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.4rem;">მონიშნე, რას აკეთებ ყოველდღიურად, დააჭირე ღილაკს და გაიგე შენი შედეგი:</p>
+            
+            <label class="calc-option">
+                <input type="checkbox" class="eco-check" value="25">
+                <span>ყოველდღე დავდივარ საკუთარი მრავალჯერადი წყლის ბოთლით</span>
+            </label>
+            <label class="calc-option">
+                <input type="checkbox" class="eco-check" value="25">
+                <span>ვახდენ ქაღალდისა და პლასტმასის სორტირებას სკოლაში</span>
+            </label>
+            <label class="calc-option">
+                <input type="checkbox" class="eco-check" value="25">
+                <span>ყოველთვის ვრთავ შუქს/კომპიუტერს ოთახიდან გასვლისას</span>
+            </label>
+            <label class="calc-option">
+                <input type="checkbox" class="eco-check" value="25">
+                <span>სკოლაში დავდივარ ფეხით, ველოსიპედით ან საზოგადოებრივი ტრანსპორტით</span>
+            </label>
+
+            <button type="button" class="btn-gradient btn-accent" onclick="calculateEcoScore()" style="margin-top: 1.2rem;">
+                შედეგის გამოთვლა <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+
+            <div class="calc-result-box">
+                <div class="calc-result-header">
+                    <span>შენი ეკო-აქტიურობის ქულა:</span>
+                    <span class="calc-score" id="ecoScore">0 / 100</span>
+                </div>
+                <div class="eco-message" id="ecoMessage"></div>
+            </div>
+        </div>
+
+        <!-- Student Ideas Submission Form -->
+        <div class="section-header" id="ideas">
+            <h2 class="section-title"><i class="fa-solid fa-lightbulb" style="color: #f59e0b;"></i> გაგიჩნდა იდეა? გაგვიზიარე!</h2>
+            <p class="section-subtitle">შენი ხმა მნიშვნელოვანია სკოლის განვითარებისთვის</p>
+        </div>
+
+        <div class="form-section">
+            <form id="ideaForm">
+                <div class="form-group">
+                    <label for="name">სახელი, გვარი (სურვილისამებრ):</label>
+                    <input type="text" id="name" placeholder="მაგ: გიორგი ბერიძე">
+                </div>
+                <div class="form-group">
+                    <label for="category">იდეის კატეგორია:</label>
+                    <select id="category">
+                        <option value="eco">გარემოს დაცვა / გამწვანება</option>
+                        <option value="school">სასკოლო ცხოვრების გაუმჯობესება</option>
+                        <option value="club">კლუბში გაწევრიანება / ახალი კლუბი</option>
+                        <option value="other">სხვა</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">შენი იდეის აღწერა:</label>
+                    <textarea id="message" rows="4" required placeholder="აღწერე, რა ცვლილების შეტანა გსურს სკოლაში..."></textarea>
+                </div>
+                <button type="submit" class="btn-gradient" style="font-size: 1rem; padding: 1rem 2.6rem;"><i class="fa-solid fa-paper-plane"></i> იდეის გაგზავნა</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#top" class="back-to-top" id="backToTop" title="მთავარზე დაბრუნება">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 სასკოლო საინფორმაციო პორტალი | მოსწავლეთა ინიციატივების მხარდასაჭერად</p>
+    </footer>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        document.getElementById('logoBtn').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeIcon.className = 'fa-solid fa-moon';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun';
+            }
+        });
+
+        const burgerBtn = document.getElementById('burgerBtn');
+        const burgerDropdown = document.getElementById('burgerDropdown');
+
+        burgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            burgerDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!burgerDropdown.contains(e.target) && !burgerBtn.contains(e.target)) {
+                burgerDropdown.classList.remove('active');
+            }
+        });
+
+        burgerDropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerDropdown.classList.remove('active');
+            });
+        });
+
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        function calculateEcoScore() {
+            const checkboxes = document.querySelectorAll('.eco-check');
+            let score = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    score += parseInt(cb.value);
+                }
+            });
+
+            document.getElementById('ecoScore').innerText = `${score} / 100`;
+
+            const msgElement = document.getElementById('ecoMessage');
+            msgElement.style.display = 'block';
+
+            if (score === 100) {
+                msgElement.innerText = "საოცარია! შენ ნამდვილი სუპერ ეკო-გმირი ხარ!";
+                msgElement.style.color = "#059669";
+            } else if (score >= 75) {
+                msgElement.innerText = "შესანიშნავი შედეგია! შენ აქტიურად ზრუნავ გარემოზე.";
+                msgElement.style.color = "#10b981";
+            } else if (score >= 50) {
+                msgElement.innerText = "კარგი დასაწყისია! განაგრძე ეკო-ჩვევების განვითარება.";
+                msgElement.style.color = "#2563eb";
+            } else if (score > 0) {
+                msgElement.innerText = "ყოველი პატარა ეკო-ნაბიჯი უდიდეს განსხვავებას ქმნის!";
+                msgElement.style.color = "#d97706";
+            } else {
+                msgElement.innerText = "აირჩიე თუნდაც 1 ჩვევა და დაიწყე გარემოზე ზრუნვა დღესვე!";
+                msgElement.style.color = "#dc2626";
+            }
+        }
+
+        document.getElementById('ideaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('მადლობა! შენი იდეა წარმატებით გაიგზავნა ადმინისტრაციასთან.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
